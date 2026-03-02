@@ -52,16 +52,21 @@
 
 @media (max-width: 480px) {
   .keyboard {
+    max-width: 380px;
+    width: 100%;
     padding: 0 4px 80px 4px;
   }
   .key {
     flex: 1;
     min-width: 24px;
+    max-width: 28px;
     font-size: 14px;
     padding: 14px 6px 10px 6px;
 
     &-wide {
       flex: auto;
+      max-width: unset;
+      width: 60px;
     }
   }
 }
