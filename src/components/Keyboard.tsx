@@ -25,7 +25,7 @@ export default function Keyboard({ onKeyPress, keyboardState }: KeyboardProps) {
             return (
               <button
                 key={key}
-                className={`key ${stateClass}`}
+                className={`key ${stateClass} ${key === "enter" || key === "backspace" ? "key-wide" : ""}`}
                 onClick={() => onKeyPress(key)}
                 onTouchEnd={(e) => {
                   e.preventDefault();
