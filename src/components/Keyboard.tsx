@@ -8,20 +8,20 @@ interface KeyboardProps {
   keyboardState: Record<string, LetterState>;
 }
 
-const rows = [
-  ["q", "w", "e", "r", "t", "z", "u", "i", "o", "p", "š", "đ"],
+// Desktop layout
+const desktopRows = [
+  ["e", "r", "t", "z", "u", "i", "o", "p", "š", "đ"],
   ["a", "s", "d", "f", "g", "h", "j", "k", "l", "č", "ć", "ž"],
-  ["enter", "y", "x", "c", "v", "b", "n", "m", "backspace"],
+  ["enter", "c", "v", "b", "n", "m", "backspace"],
 ];
 
 export default function Keyboard({ onKeyPress, keyboardState }: KeyboardProps) {
   return (
     <div className="keyboard">
-      {rows.map((row, rowIndex) => (
+      {desktopRows.map((row, rowIndex) => (
         <div key={rowIndex} className="keyboard-row">
           {row.map((key) => {
             const stateClass = keyboardState[key] ?? "";
-
             return (
               <button
                 key={key}

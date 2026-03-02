@@ -72,4 +72,13 @@ h1.title {
   margin-bottom: 20px;
   padding: 12px 0 8px;
   border-bottom: 2px solid #3a3a3c;
+
+  button {
+    margin-top: -2px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-left: 12px;
+    background-color: transparent;
+  }
 }
