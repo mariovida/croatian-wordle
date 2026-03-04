@@ -1,0 +1,47 @@
+@use "@/styles/fonts.scss" as *;
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 40px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.key {
+  padding: 16px 8px 12px 8px;
+  min-width: 40px;
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  background: #818384;
+  color: white;
+  font-family: $ff-title;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.key:active {
+  background: #565758;
+}
+
+.key.correct {
+  background: #538d4e;
+}
+.key.present {
+  background: #b59f3b;
+}
+.key.absent {
+  background: #3a3a3c;
+}
