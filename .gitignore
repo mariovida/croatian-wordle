@@ -44,4 +44,5 @@ next-env.d.ts
 /.vscode
 generateWords.js
 hr_words.txt
-src/data/
+src/data/words.ts
+src/data/words-easy.json
