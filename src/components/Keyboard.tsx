@@ -21,11 +21,16 @@ export default function Keyboard({ onKeyPress, keyboardState }: KeyboardProps) {
         <div key={rowIndex} className="keyboard-row">
           {row.map((key) => {
             const stateClass = keyboardState[key] ?? "";
+
             return (
               <button
                 key={key}
                 className={`key ${stateClass}`}
                 onClick={() => onKeyPress(key)}
+                onTouchEnd={(e) => {
+                  e.preventDefault();
+                  onKeyPress(key);
+                }}
               >
                 {key === "backspace" ? "⌫" : key.toUpperCase()}
               </button>
