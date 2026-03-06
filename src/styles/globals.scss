@@ -1,5 +1,29 @@
 @use "./fonts" as *;
 
+:root {
+  --bg-color: #121212;
+  --text-color: #f2f2f2;
+  --cell-bg: #3a3a3c;
+  --cell-text-active: #f2f2f2;
+  --cell-correct: #538d4e;
+  --cell-present: #b59f3b;
+  --cell-absent: #3a3a3c;
+  --message-bg: #f2f2f2;
+  --message-text: #121212;
+}
+
+[data-theme="light"] {
+  --bg-color: #f2f2f2;
+  --text-color: #121212;
+  --cell-bg: #d3d6da;
+  --cell-text-active: #f2f2f2;
+  --cell-correct: #6aaa64;
+  --cell-present: #c9b458;
+  --cell-absent: #787c7e;
+  --message-bg: #d3d6da;
+  --message-text: #121212;
+}
+
 *,
 *::before,
 *::after {
@@ -13,10 +37,13 @@
 }
 
 body {
-  background: #121213;
-  color: white;
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: $ff-title;
   margin: 0;
+  transition:
+    background-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
 }
 
 .app {
@@ -34,7 +61,10 @@ body {
 }
 
 h1.title {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
   width: 100%;
   font-size: 28px;
   letter-spacing: 2px;
