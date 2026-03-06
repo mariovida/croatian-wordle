@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# custom
+/.vscode
+generateWords.js
+hr_words.txt
+src/data/
