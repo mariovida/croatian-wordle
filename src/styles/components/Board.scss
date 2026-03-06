@@ -1,0 +1,36 @@
+.board {
+  display: grid;
+  gap: 8px;
+}
+
+.board-row {
+  display: flex;
+  gap: 8px;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  border: 2px solid #3a3a3c;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.cell.correct {
+  background: #538d4e;
+  border-color: #538d4e;
+}
+
+.cell.present {
+  background: #b59f3b;
+  border-color: #b59f3b;
+}
+
+.cell.absent {
+  background: #3a3a3c;
+  border-color: #3a3a3c;
+}
