@@ -34,3 +34,25 @@
   background: #3a3a3c;
   border-color: #3a3a3c;
 }
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.board-row.shake {
+  animation: shake 0.5s;
+}
