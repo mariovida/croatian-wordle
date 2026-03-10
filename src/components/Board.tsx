@@ -26,30 +26,21 @@ export default function Board() {
   const [flippingRow, setFlippingRow] = useState<number | null>(null);
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [showWinModal, setShowWinModal] = useState(false);
 
   console.log("ANSWER:", answer);
 
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (gameOver) return;
-      const key = e.key.toLowerCase();
-      if (key === "backspace") return handleBackspace();
-      if (key === "enter") return handleEnter();
-      if (/^[a-zčćđšž]$/.test(key)) handleLetter(key);
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [currentRow, currentCol, gameOver]);
-
   function handleKeyPress(key: string) {
-    if (gameOver) return;
+    if (gameOver || flippingRow !== null) return;
+
     if (key === "backspace") handleBackspace();
     else if (key === "enter") handleEnter();
     else handleLetter(key);
   }
 
   function handleLetter(letter: string) {
-    if (currentCol >= COLS || gameOver) return;
+    if (currentCol >= COLS || gameOver || flippingRow !== null) return;
+
     const newBoard = [...board];
     newBoard[currentRow][currentCol] = letter;
     setBoard(newBoard);
@@ -57,7 +48,8 @@ export default function Board() {
   }
 
   function handleBackspace() {
-    if (currentCol === 0 || gameOver) return;
+    if (currentCol === 0 || gameOver || flippingRow !== null) return;
+
     const newBoard = [...board];
     newBoard[currentRow][currentCol - 1] = "";
     setBoard(newBoard);
@@ -65,7 +57,8 @@ export default function Board() {
   }
 
   function handleEnter() {
-    if (gameOver) return;
+    if (gameOver || flippingRow !== null) return;
+
     if (currentCol !== COLS) {
       setShakeRow(currentRow);
       setTimeout(() => setShakeRow(null), 500);
@@ -73,6 +66,7 @@ export default function Board() {
     }
 
     const guess = board[currentRow].join("");
+
     if (!isValidWord(guess)) {
       setShakeRow(currentRow);
       setMessage("Riječ ne postoji!");
@@ -94,6 +88,7 @@ export default function Board() {
         });
 
         const letter = board[currentRow][colIndex];
+
         setKeyboardState((prev) => {
           const prevState = prev[letter];
           if (prevState === "correct") return prev;
@@ -103,22 +98,36 @@ export default function Board() {
       }, colIndex * 300);
     });
 
-    setTimeout(
-      () => {
-        if (result.every((s) => s === "correct")) {
-          setGameOver(true);
-        } else if (currentRow + 1 >= ROWS) {
-          setMessage(`Točan odgovor je: ${answer.toUpperCase()}`);
-          setGameOver(true);
-        } else {
-          setCurrentRow(currentRow + 1);
-          setCurrentCol(0);
-        }
-        setFlippingRow(null);
-      },
-      COLS * 300 + 300,
-    );
+    setTimeout(() => {
+      if (result.every((s) => s === "correct")) {
+        setGameOver(true);
+        setShowWinModal(true);
+      } else if (currentRow + 1 >= ROWS) {
+        setMessage(`Točan odgovor je: ${answer.toUpperCase()}`);
+        setGameOver(true);
+      } else {
+        setCurrentRow(currentRow + 1);
+        setCurrentCol(0);
+      }
+
+      setFlippingRow(null);
+    }, COLS * 300 + 300);
   }
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (gameOver || flippingRow !== null) return;
+
+      const key = e.key.toLowerCase();
+
+      if (key === "backspace") return handleBackspace();
+      if (key === "enter") return handleEnter();
+      if (/^[a-zčćđšž]$/.test(key)) handleLetter(key);
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [currentRow, currentCol, gameOver, flippingRow]);
 
   return (
     <>
@@ -148,6 +157,19 @@ export default function Board() {
       </div>
 
       <Keyboard onKeyPress={handleKeyPress} keyboardState={keyboardState} />
+
+      {showWinModal && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <h2>Bravo!</h2>
+      <p>Pogodio si riječ: <b>{answer.toUpperCase()}</b></p>
+
+      <button onClick={() => window.location.reload()}>
+        Igraj ponovo
+      </button>
+    </div>
+  </div>
+)}
     </>
   );
 }

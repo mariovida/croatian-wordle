@@ -11,8 +11,8 @@ interface KeyboardProps {
 // Desktop layout
 const desktopRows = [
   ["e", "r", "t", "z", "u", "i", "o", "p", "š", "đ"],
-  ["a", "s", "d", "f", "g", "h", "j", "k", "l", "č", "ć", "ž"],
-  ["enter", "c", "v", "b", "n", "m", "backspace"],
+  ["a", "s", "d", "f", "g", "h", "j", "k", "l", "č", "ć"],
+  ["enter", "c", "v", "b", "n", "m", "ž", "backspace"],
 ];
 
 export default function Keyboard({ onKeyPress, keyboardState }: KeyboardProps) {
