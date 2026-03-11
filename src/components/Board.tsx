@@ -27,6 +27,7 @@ export default function Board() {
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
   const [showWinModal, setShowWinModal] = useState(false);
+  const [showLoseModal, setShowLoseModal] = useState(false);
 
   console.log("ANSWER:", answer);
 
@@ -103,8 +104,8 @@ export default function Board() {
         setGameOver(true);
         setShowWinModal(true);
       } else if (currentRow + 1 >= ROWS) {
-        setMessage(`Točan odgovor je: ${answer.toUpperCase()}`);
         setGameOver(true);
+  setShowLoseModal(true);
       } else {
         setCurrentRow(currentRow + 1);
         setCurrentCol(0);
@@ -163,6 +164,21 @@ export default function Board() {
     <div className="modal">
       <h2>Bravo!</h2>
       <p>Pogodio si riječ: <b>{answer.toUpperCase()}</b></p>
+
+      <button onClick={() => window.location.reload()}>
+        Igraj ponovo
+      </button>
+    </div>
+  </div>
+)}
+
+{showLoseModal && (
+  <div className="modal-overlay">
+    <div className="modal">
+      <h2>Završeno!</h2>
+      <p>
+        Točna riječ je: <b>{answer.toUpperCase()}</b>
+      </p>
 
       <button onClick={() => window.location.reload()}>
         Igraj ponovo
